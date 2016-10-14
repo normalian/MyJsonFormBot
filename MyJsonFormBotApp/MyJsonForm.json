@@ -1,0 +1,51 @@
+﻿{
+  "References": [ "MyJsonFormBotApp.dll" ],
+  "type": "object",
+  "required": [
+    "AzureService",
+    "Term"
+  ],
+  "Templates": {
+    "NotUnderstood": {
+      "Patterns": [ "悪いけど「\"{0}\"」だと何を言っているのか分からないです。", "もう一回試してもらっていいですか？" ]
+    }
+  },
+  "properties": {
+    "AzureService": {
+      "Prompt": { "Patterns": [ "どの {&} が好きですか？ {||}" ] },
+      "Before": [ { "Message": [ "Microsoft Azure アンケート回収 Bot へようこそ！" ] } ],
+      "Describe": { "Image": "https://www.p2vsystems.com/wp-content/uploads/2016/09/ms-azure.png" },
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "AppService",
+        "CloudService",
+        "VirtualMachine",
+        "ExpressRoute",
+        "AzureRedisCache"
+      ]
+    },
+    "Term": {
+      "Prompt": {
+        "Patterns": [ "何か月くらい Microsoft Azure を利用していますか？ {||}" ]
+      },
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "Rating": {
+      "Describe": "Microsoft Azure の満足度について",
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 1,
+      "maximum": 5,
+      "After": [ { "Message": [ "ご回答ありがとうございます。" ] } ]
+    }
+  },
+  "OnCompletion": "await context.PostAsync(\"内容を投稿しています。ご回答ありがとうございました！！\");"
+}
